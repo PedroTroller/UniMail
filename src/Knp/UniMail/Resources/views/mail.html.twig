@@ -1,0 +1,11 @@
+{% block subject '' %}
+
+{% block body '' %}
+
+{% block text_body %}
+    {{ block('body') }}
+{% endblock text_body %}
+
+{% block html_body %}
+    {{ block('body') }}
+{% endblock html_body %}
