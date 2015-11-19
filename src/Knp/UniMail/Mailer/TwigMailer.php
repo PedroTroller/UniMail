@@ -4,8 +4,8 @@ namespace Knp\UniMail\Mailer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Knp\UniMail\Mail;
-use Knp\UniMail\MailFactory;
 use Knp\UniMail\Mailer as MailerInterface;
+use Knp\UniMail\MailFactory;
 use Swift_Mailer;
 use Swift_Message;
 use Twig_Environment;

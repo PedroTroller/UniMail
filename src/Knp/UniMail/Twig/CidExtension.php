@@ -3,7 +3,8 @@
 namespace Knp\UniMail\Twig;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Swift_EmbeddedFile;
+use Knp\UniMail\Cid\Collection;
+use Knp\UniMail\Cid\Resolver;
 use Twig_Extension;
 use Twig_SimpleFunction;
 
@@ -15,18 +16,18 @@ class CidExtension extends Twig_Extension
     private $cids;
 
     /**
-     * @var string
+     * @var Resolver[]
      */
-    private $directory;
+    private $resolvers;
 
     /**
-     * @param ArrayCollection $cids
-     * @param string          $directory
+     * @param Collection $cids
+     * @param Resolver[] $resolvers
      */
-    public function __construct(ArrayCollection $cids, $directory)
+    public function __construct(Collection $cids, array $resolvers)
     {
         $this->cids      = $cids;
-        $this->directory = $directory;
+        $this->resolvers = $resolvers;
     }
 
     /**
@@ -39,19 +40,28 @@ class CidExtension extends Twig_Extension
         ];
     }
 
+    /**
+     * @param string $path
+     *
+     * @return string
+     */
     public function addCid($path)
     {
-        $path = str_replace('/', DIRECTORY_SEPARATOR, $path);
+        foreach ($this->resolvers as $resolver) {
+            if (null !== $attachment = $resolver->createFromString($path)) {
+                $attachment->setDisposition('inline');
+                $this->cids->add($attachment);
 
-        $attachment = Swift_EmbeddedFile::fromPath(sprintf('%s%s%s', $this->directory, DIRECTORY_SEPARATOR, $path));
-        $attachment->setDisposition('inline');
+                return sprintf('cid:%s', $attachment->getId());
+            }
+        }
 
-        $parts                   = explode(DIRECTORY_SEPARATOR, $path);
-        $this->cids[end($parts)] = $attachment;
-
-        return sprintf('cid:%s', $attachment->getId());
+        throw new \RuntimeException(sprintf('Can\'t resolve cid from "%s".', $path));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'knp_unimail.cids';

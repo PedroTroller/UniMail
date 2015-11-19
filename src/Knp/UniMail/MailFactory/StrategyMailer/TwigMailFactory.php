@@ -2,9 +2,9 @@
 
 namespace Knp\UniMail\MailFactory\StrategyMailer;
 
+use Knp\UniMail\Mail\TwigMail;
 use Knp\UniMail\MailFactory;
 use Knp\UniMail\MailFactory\StrategyMailer;
-use Knp\UniMail\Mail\TwigMail;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class TwigMailFactory implements StrategyMailer, MailFactory

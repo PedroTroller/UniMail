@@ -3,9 +3,9 @@
 namespace Knp\UniMail\Mailer;
 
 use Knp\UniMail\Mail;
-use Knp\UniMail\MailFactory;
 use Knp\UniMail\Mail\SwiftMail;
 use Knp\UniMail\Mailer;
+use Knp\UniMail\MailFactory;
 use Swift_Mailer;
 use Swift_Message;
 

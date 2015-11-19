@@ -2,7 +2,7 @@
 
 namespace Knp\UniMail\EventListener;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Knp\UniMail\Cid\Collection;
 use Knp\UniMail\MailerEvent;
 use Knp\UniMail\MailerEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -11,7 +11,7 @@ class CidAttachmentMerger implements EventSubscriberInterface
 {
     private $cids;
 
-    public function __construct(ArrayCollection $cids)
+    public function __construct(Collection $cids)
     {
         $this->cids = $cids;
     }
@@ -19,7 +19,7 @@ class CidAttachmentMerger implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            MailerEvents::PRE_SEND => array('beforeSend', -3)
+            MailerEvents::PRE_SEND => array('beforeSend', -3),
         ];
     }
 
@@ -28,7 +28,7 @@ class CidAttachmentMerger implements EventSubscriberInterface
         $mail        = $event->getMail();
         $attachments = $mail->getAttachments();
         $attachments = array_merge(
-            $this->cids->toArray(),
+            $this->cids->all(),
             $attachments
         );
 

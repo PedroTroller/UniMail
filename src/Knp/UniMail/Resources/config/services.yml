@@ -18,13 +18,20 @@ services:
     knp_unimail.attachment_factory:
         alias: knp_unimail.attachment_factory.chain_attachment_factory
 
-    knp_unimail.collection.cids:
-        class: Doctrine\Common\Collections\ArrayCollection
+    knp_unimail.cid.collection:
+        class: Knp\UniMail\Cid\Collection
+
+    knp_unimail.event_listener.attachment_resolver:
+        class: Knp\UniMail\EventListener\AttachmentResolver
+        arguments:
+            - @knp_unimail.attachment_factory
+        tags:
+          - { name: kernel.event_subscriber }
 
     knp_unimail.event_listener.cid_attachment_merger:
         class: Knp\UniMail\EventListener\CidAttachmentMerger
         arguments:
-            - @knp_unimail.collection.cids
+            - @knp_unimail.cid.collection
         tags:
           - { name: kernel.event_subscriber }
 
@@ -32,13 +39,6 @@ services:
         class: Knp\UniMail\EventListener\TwigRenderer
         arguments:
             - @twig
-        tags:
-          - { name: kernel.event_subscriber }
-
-    knp_unimail.event_listener.attachment_resolver:
-        class: Knp\UniMail\EventListener\AttachmentResolver
-        arguments:
-            - @knp_unimail.attachment_factory
         tags:
           - { name: kernel.event_subscriber }
 
@@ -83,8 +83,17 @@ services:
     knp_unimail.twig.cid_extension:
         class: Knp\UniMail\Twig\CidExtension
         arguments:
-            - @knp_unimail.collection.cids
-            - %knp_unimail.attachments_directory%
+            - @knp_unimail.cid.collection
+            - [@knp_unimail.cid.resolver.local_file, @knp_unimail.cid.resolver.remove_file]
         tags:
             - { name: twig.extension }
 
+    knp_unimail.cid.resolver.local_file:
+        class: Knp\UniMail\Cid\Resolver\LocalFile
+        arguments:
+            - %knp_unimail.attachments_directory%
+
+    knp_unimail.cid.resolver.remove_file:
+        class: Knp\UniMail\Cid\Resolver\RemoteFile
+        arguments:
+            - %knp_unimail.attachments_directory%
