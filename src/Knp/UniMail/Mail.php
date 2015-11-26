@@ -16,6 +16,18 @@ interface Mail
 
     public function setTo($to);
 
+    public function getCc();
+
+    public function setCc($cc);
+
+    public function getBcc();
+
+    public function setBcc($bcc);
+
+    public function getReplyTo();
+
+    public function setReplyTo($replyTo);
+
     public function getAttachments();
 
     public function setAttachments(array $attachments);

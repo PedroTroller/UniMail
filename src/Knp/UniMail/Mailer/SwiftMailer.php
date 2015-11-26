@@ -57,6 +57,9 @@ class SwiftMailer implements Mailer
             ->setSubject($mail->getSubject())
             ->setFrom($mail->getFrom())
             ->setTo($mail->getTo())
+            ->setBcc($mail->getBcc())
+            ->setCc($mail->getCc())
+            ->setReplyTo($mail->getReplyTo())
             ->setBody($mail->getHtmlBody(), 'text/html')
             ->addPart($mail->getTextBody())
         ;
