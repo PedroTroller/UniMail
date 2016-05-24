@@ -26,11 +26,12 @@ class LocalFile implements Resolver
     public function createFromString($string)
     {
         $string = str_replace('/', DIRECTORY_SEPARATOR, $string);
+        $string = sprintf('%s%s%s', $this->directory, DIRECTORY_SEPARATOR, $string);
 
         if (false === file_exists($string)) {
             return;
         }
 
-        return Swift_EmbeddedFile::fromPath(sprintf('%s%s%s', $this->directory, DIRECTORY_SEPARATOR, $string));
+        return Swift_EmbeddedFile::fromPath($string);
     }
 }
