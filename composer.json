@@ -8,6 +8,7 @@
         }
     ],
     "require": {
+        "php": ">=5.4",
         "doctrine/collections": "~1.0",
         "swiftmailer/swiftmailer": "~5.0",
         "symfony/config": "~2.4",
@@ -19,6 +20,7 @@
     },
     "require-dev": {
         "knplabs/phpspec-welldone-extension": "~1.0",
+        "pedrotroller/php-cs-custom-fixer": "^1.5",
         "phpspec/phpspec": "^2.3"
     },
     "autoload": {
@@ -27,7 +29,8 @@
         }
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "sort-packages": true
     },
     "extra": {
         "branch-alias": {
