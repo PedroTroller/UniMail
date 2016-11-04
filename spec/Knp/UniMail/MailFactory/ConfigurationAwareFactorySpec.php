@@ -5,7 +5,6 @@ namespace spec\Knp\Rad\Mailer\MailFactory;
 use Knp\Rad\Mailer\Mail;
 use Knp\Rad\Mailer\MailFactory;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class ConfigurationAwareFactorySpec extends ObjectBehavior
 {
@@ -15,7 +14,7 @@ class ConfigurationAwareFactorySpec extends ObjectBehavior
             'the_mail' => [
                 'from' => 'mail@mail.com',
                 'to'   => 'to@mail.com',
-            ]
+            ],
         ];
 
         $this->beConstructedWith($configuration, $factory);

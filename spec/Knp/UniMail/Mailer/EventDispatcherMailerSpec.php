@@ -43,7 +43,7 @@ class EventDispatcherMailerSpec extends ObjectBehavior
         $dispatcher
             ->dispatch(
                 MailerEvents::PRE_SEND,
-                Argument::that(function($e) use ($mail) {
+                Argument::that(function ($e) use ($mail) {
                     return $mail === $e->getMail();
                 })
             )
@@ -53,7 +53,7 @@ class EventDispatcherMailerSpec extends ObjectBehavior
         $dispatcher
             ->dispatch(
                 MailerEvents::preSend($mail),
-                Argument::that(function($e) use ($mail) {
+                Argument::that(function ($e) use ($mail) {
                     return $mail === $e->getMail();
                 })
             )
@@ -63,7 +63,7 @@ class EventDispatcherMailerSpec extends ObjectBehavior
         $dispatcher
             ->dispatch(
                 MailerEvents::POST_SEND,
-                Argument::that(function($e) use ($mail) {
+                Argument::that(function ($e) use ($mail) {
                     return $mail === $e->getMail();
                 })
             )
@@ -73,7 +73,7 @@ class EventDispatcherMailerSpec extends ObjectBehavior
         $dispatcher
             ->dispatch(
                 MailerEvents::postSend($mail),
-                Argument::that(function($e) use ($mail) {
+                Argument::that(function ($e) use ($mail) {
                     return $mail === $e->getMail();
                 })
             )

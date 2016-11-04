@@ -21,6 +21,16 @@ services:
     knp_unimail.cid.collection:
         class: Knp\UniMail\Cid\Collection
 
+    knp_unimail.cid.resolver.local_file:
+        class: Knp\UniMail\Cid\Resolver\LocalFile
+        arguments:
+            - %knp_unimail.attachments_directory%
+
+    knp_unimail.cid.resolver.remove_file:
+        class: Knp\UniMail\Cid\Resolver\RemoteFile
+        arguments:
+            - %knp_unimail.attachments_directory%
+
     knp_unimail.event_listener.attachment_resolver:
         class: Knp\UniMail\EventListener\AttachmentResolver
         arguments:
@@ -87,13 +97,3 @@ services:
             - [@knp_unimail.cid.resolver.local_file, @knp_unimail.cid.resolver.remove_file]
         tags:
             - { name: twig.extension }
-
-    knp_unimail.cid.resolver.local_file:
-        class: Knp\UniMail\Cid\Resolver\LocalFile
-        arguments:
-            - %knp_unimail.attachments_directory%
-
-    knp_unimail.cid.resolver.remove_file:
-        class: Knp\UniMail\Cid\Resolver\RemoteFile
-        arguments:
-            - %knp_unimail.attachments_directory%

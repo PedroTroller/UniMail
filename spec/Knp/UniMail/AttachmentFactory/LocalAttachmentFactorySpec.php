@@ -3,7 +3,6 @@
 namespace spec\Knp\Rad\Mailer\AttachmentFactory;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class LocalAttachmentFactorySpec extends ObjectBehavior
 {
