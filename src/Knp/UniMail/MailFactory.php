@@ -6,7 +6,7 @@ interface MailFactory
 {
     /**
      * @param string     $name
-     * @param array|null $options
+     * @param null|array $options
      *
      * @return Mail
      */

@@ -7,7 +7,7 @@ interface Resolver
     /**
      * @param string $string
      *
-     * @return Swift_EmbeddedFile|null
+     * @return null|Swift_EmbeddedFile
      */
     public function createFromString($string);
 }

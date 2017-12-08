@@ -6,9 +6,9 @@ interface Mailer
 {
     /**
      * @param string     $name
-     * @param array|null $options
+     * @param null|array $options
      *
-     * @return Mail|null
+     * @return null|Mail
      */
     public function createMail($name, array $options = []);
 

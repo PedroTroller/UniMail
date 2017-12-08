@@ -19,7 +19,7 @@ class CidAttachmentMerger implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            MailerEvents::PRE_SEND => array('beforeSend', -3),
+            MailerEvents::PRE_SEND => ['beforeSend', -3],
         ];
     }
 

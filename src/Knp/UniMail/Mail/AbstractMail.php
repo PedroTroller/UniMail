@@ -17,22 +17,22 @@ abstract class AbstractMail implements Mail
     private $from;
 
     /**
-     * @var string|array<string>
+     * @var array<string>|string
      */
     private $to;
 
     /**
-     * @var string|array<string>
+     * @var array<string>|string
      */
     private $cc;
 
     /**
-     * @var string|array<string>
+     * @var array<string>|string
      */
     private $bcc;
 
     /**
-     * @var string|array<string>
+     * @var array<string>|string
      */
     private $replyTo;
 
