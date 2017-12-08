@@ -1,15 +1,14 @@
 <?php
 
-namespace spec\Knp\Rad\Mailer\AttachmentFactory;
+namespace spec\Knp\UniMail\AttachmentFactory;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class LocalAttachmentFactorySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Knp\Rad\Mailer\AttachmentFactory\LocalAttachmentFactory');
+        $this->shouldHaveType('Knp\UniMail\AttachmentFactory\LocalAttachmentFactory');
     }
 
     function it_supports_existing_files()
@@ -22,7 +21,6 @@ class LocalAttachmentFactorySpec extends ObjectBehavior
     {
         $this
             ->createAttachment('foo', __FILE__)
-            ->shouldHaveType('Swift_Mime_MimeEntity')
-        ;
+            ->shouldHaveType('Swift_Mime_MimeEntity');
     }
 }

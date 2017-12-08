@@ -21,8 +21,7 @@ class TwigMail extends AbstractMail
         return (new self($mail->getName()))
             ->setFrom($mail->getFrom())
             ->setTo($mail->getTo())
-            ->setAttachments($mail->getAttachments())
-        ;
+            ->setAttachments($mail->getAttachments());
     }
 
     /**
@@ -35,6 +34,7 @@ class TwigMail extends AbstractMail
 
     /**
      * @param string $string
+     * @param mixed  $template
      *
      * @return TwigMail
      */

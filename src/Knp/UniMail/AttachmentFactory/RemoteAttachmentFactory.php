@@ -22,7 +22,7 @@ class RemoteAttachmentFactory implements AttachmentFactory
             return false;
         }
 
-        return false === strpos($headers[0], '404');
+        return false === mb_strpos($headers[0], '404');
     }
 
     /**

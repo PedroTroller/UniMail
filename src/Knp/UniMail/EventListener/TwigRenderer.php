@@ -21,7 +21,7 @@ class TwigRenderer implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            MailerEvents::PRE_SEND => array('beforeSend', -2),
+            MailerEvents::PRE_SEND => ['beforeSend', -2],
         ];
     }
 

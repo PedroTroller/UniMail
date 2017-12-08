@@ -18,7 +18,7 @@ class RemoteFile implements Resolver
             return;
         }
 
-        if (false !== strpos($headers[0], '404')) {
+        if (false !== mb_strpos($headers[0], '404')) {
             return;
         }
 

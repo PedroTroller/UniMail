@@ -26,8 +26,10 @@ class SwiftMail extends AbstractMail
         return (new self($mail->getName()))
             ->setFrom($mail->getFrom())
             ->setTo($mail->getTo())
-            ->setAttachments($mail->getAttachments())
-        ;
+            ->setCc($mail->getCc())
+            ->setBcc($mail->getBcc())
+            ->setReplyTo($mail->getReplyTo())
+            ->setAttachments($mail->getAttachments());
     }
 
     /**

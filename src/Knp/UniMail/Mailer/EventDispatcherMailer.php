@@ -24,8 +24,10 @@ class EventDispatcherMailer implements Mailer
      * @param Mailer                   $wrapped
      * @param EventDispatcherInterface $dispatcher
      */
-    public function __construct(Mailer $wrapped, EventDispatcherInterface $dispatcher)
-    {
+    public function __construct(
+        Mailer $wrapped,
+        EventDispatcherInterface $dispatcher
+    ) {
         $this->wrapped    = $wrapped;
         $this->dispatcher = $dispatcher;
     }
@@ -37,8 +39,7 @@ class EventDispatcherMailer implements Mailer
     {
         return $this
             ->wrapped
-            ->createMail($name, $options)
-        ;
+            ->createMail($name, $options);
     }
 
     /**
@@ -50,28 +51,23 @@ class EventDispatcherMailer implements Mailer
 
         $this
             ->dispatcher
-            ->dispatch(MailerEvents::PRE_SEND, $event)
-        ;
+            ->dispatch(MailerEvents::PRE_SEND, $event);
 
         $this
             ->dispatcher
-            ->dispatch(MailerEvents::preSend($event->getMail()), $event)
-        ;
+            ->dispatch(MailerEvents::preSend($event->getMail()), $event);
 
         $this
             ->wrapped
-            ->sendMail($event->getMail())
-        ;
+            ->sendMail($event->getMail());
 
         $this
             ->dispatcher
-            ->dispatch(MailerEvents::postSend($event->getMail()), $event)
-        ;
+            ->dispatch(MailerEvents::postSend($event->getMail()), $event);
 
         $this
             ->dispatcher
-            ->dispatch(MailerEvents::POST_SEND, $event)
-        ;
+            ->dispatch(MailerEvents::POST_SEND, $event);
     }
 
     /**

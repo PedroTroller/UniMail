@@ -37,8 +37,7 @@ class SwiftMailer implements Mailer
     {
         return $this
             ->factory
-            ->createMail($name, $options)
-        ;
+            ->createMail($name, $options);
     }
 
     /**
@@ -53,7 +52,7 @@ class SwiftMailer implements Mailer
             ));
         }
 
-        $message = Swift_Message::newInstance()
+        $message = (new Swift_Message())
             ->setSubject($mail->getSubject())
             ->setFrom($mail->getFrom())
             ->setTo($mail->getTo())
@@ -61,8 +60,7 @@ class SwiftMailer implements Mailer
             ->setCc($mail->getCc())
             ->setReplyTo($mail->getReplyTo())
             ->setBody($mail->getHtmlBody(), 'text/html')
-            ->addPart($mail->getTextBody())
-        ;
+            ->addPart($mail->getTextBody());
 
         foreach ($mail->getAttachments() as $attachment) {
             $message->attach($attachment);

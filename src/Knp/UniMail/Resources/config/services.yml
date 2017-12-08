@@ -5,9 +5,7 @@ services:
     knp_unimail.attachment_factory.chain_attachment_factory:
         class: Knp\UniMail\AttachmentFactory\ChainAttachmentFactory
         arguments:
-            factories:
-                - @knp_unimail.attachment_factory.local_attachment_factory
-                - @knp_unimail.attachment_factory.remote_attachment_factory
+            - [ "@knp_unimail.attachment_factory.local_attachment_factory", "@knp_unimail.attachment_factory.remote_attachment_factory" ]
 
     knp_unimail.attachment_factory.local_attachment_factory:
         class: Knp\UniMail\AttachmentFactory\LocalAttachmentFactory
@@ -24,21 +22,21 @@ services:
     knp_unimail.event_listener.attachment_resolver:
         class: Knp\UniMail\EventListener\AttachmentResolver
         arguments:
-            - @knp_unimail.attachment_factory
+            - "@knp_unimail.attachment_factory"
         tags:
           - { name: kernel.event_subscriber }
 
     knp_unimail.event_listener.cid_attachment_merger:
         class: Knp\UniMail\EventListener\CidAttachmentMerger
         arguments:
-            - @knp_unimail.cid.collection
+            - "@knp_unimail.cid.collection"
         tags:
           - { name: kernel.event_subscriber }
 
     knp_unimail.event_listener.twig_renderer:
         class: Knp\UniMail\EventListener\TwigRenderer
         arguments:
-            - @twig
+            - "@twig"
         tags:
           - { name: kernel.event_subscriber }
 
@@ -46,15 +44,13 @@ services:
         class: Knp\UniMail\MailFactory\ConfigurationAwareFactory
         public: false
         arguments:
-            - %knp_unimail.mails%
-            - @knp_unimail.mail_factory.registry_factory
+            - "%knp_unimail.mails%"
+            - "@knp_unimail.mail_factory.registry_factory"
 
     knp_unimail.mail_factory.registry_factory:
         class: Knp\UniMail\MailFactory\RegistryFactory
         arguments:
-            strategies:
-                - @knp_unimail.mail_factory.strategy_factory.swift_mail_factory
-                - @knp_unimail.mail_factory.strategy_factory.twig_mail_factory
+            - [ "@knp_unimail.mail_factory.strategy_factory.swift_mail_factory", "@knp_unimail.mail_factory.strategy_factory.twig_mail_factory" ]
 
     knp_unimail.mail_factory.strategy_factory.swift_mail_factory:
         class: Knp\UniMail\MailFactory\StrategyMailer\SwiftMailFactory
@@ -68,14 +64,14 @@ services:
     knp_unimail.mailer.event_dispatcher_mailer:
         class: Knp\UniMail\Mailer\EventDispatcherMailer
         arguments:
-            - @knp_unimail.mailer.swift_mailer
-            - @event_dispatcher
+            - "@knp_unimail.mailer.swift_mailer"
+            - "@event_dispatcher"
 
     knp_unimail.mailer.swift_mailer:
         class: Knp\UniMail\Mailer\SwiftMailer
         arguments:
-            - @mailer
-            - @knp_unimail.mail_factory
+            - "@mailer"
+            - "@knp_unimail.mail_factory"
 
     knp_unimail.mailer:
         alias: knp_unimail.mailer.event_dispatcher_mailer
@@ -83,17 +79,17 @@ services:
     knp_unimail.twig.cid_extension:
         class: Knp\UniMail\Twig\CidExtension
         arguments:
-            - @knp_unimail.cid.collection
-            - [@knp_unimail.cid.resolver.local_file, @knp_unimail.cid.resolver.remove_file]
+            - "@knp_unimail.cid.collection"
+            - ["@knp_unimail.cid.resolver.local_file", "@knp_unimail.cid.resolver.remote_file"]
         tags:
             - { name: twig.extension }
 
     knp_unimail.cid.resolver.local_file:
         class: Knp\UniMail\Cid\Resolver\LocalFile
         arguments:
-            - %knp_unimail.attachments_directory%
+            - "%knp_unimail.attachments_directory%"
 
-    knp_unimail.cid.resolver.remove_file:
+    knp_unimail.cid.resolver.remote_file:
         class: Knp\UniMail\Cid\Resolver\RemoteFile
         arguments:
-            - %knp_unimail.attachments_directory%
+            - "%knp_unimail.attachments_directory%"

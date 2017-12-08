@@ -4,13 +4,13 @@ namespace Knp\UniMail\Mailer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Knp\UniMail\Mail;
-use Knp\UniMail\Mailer as MailerInterface;
+use Knp\UniMail\Mailer;
 use Knp\UniMail\MailFactory;
 use Swift_Mailer;
 use Swift_Message;
 use Twig_Environment;
 
-class TwigMailer implements MailerInterface
+class TwigMailer implements Mailer
 {
     /**
      * @var Twig_Environment
@@ -35,8 +35,12 @@ class TwigMailer implements MailerInterface
     /**
      * @param MailFactory $factory
      */
-    public function __construct(Twig_Environment $twig, Swift_Mailer $mailer, MailFactory $factory,  ArrayCollection $cids)
-    {
+    public function __construct(
+        Twig_Environment $twig,
+        Swift_Mailer $mailer,
+        MailFactory $factory,
+        ArrayCollection $cids
+    ) {
         $this->twig    = $twig;
         $this->mailer  = $mailer;
         $this->factory = $factory;
@@ -50,8 +54,7 @@ class TwigMailer implements MailerInterface
     {
         return $this
             ->factory
-            ->createMail($name, $options)
-        ;
+            ->createMail($name, $options);
     }
 
     /**
@@ -61,7 +64,7 @@ class TwigMailer implements MailerInterface
     {
         $message  = Swift_Message::newInstance();
         $template = $this->twig->loadTemplate($mail->getTemplate());
-        $subject  = $template->renderBlock('subject',   $mail->getParameters());
+        $subject  = $template->renderBlock('subject', $mail->getParameters());
         $html     = $template->renderBlock('html_body', $mail->getParameters());
         $text     = $template->renderBlock('text_body', $mail->getParameters());
 
@@ -70,8 +73,7 @@ class TwigMailer implements MailerInterface
             ->setFrom($mail->getFrom())
             ->setTo($mail->getTo())
             ->setBody($html, 'text/html')
-            ->addPart($text)
-        ;
+            ->addPart($text);
 
         foreach ($this->cids as $name => $attachment) {
             $message->attach($attachment);

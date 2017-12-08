@@ -1,11 +1,10 @@
 <?php
 
-namespace spec\Knp\Rad\Mailer\MailFactory;
+namespace spec\Knp\UniMail\MailFactory;
 
-use Knp\Rad\Mailer\Mail;
-use Knp\Rad\Mailer\MailFactory;
+use Knp\UniMail\Mail;
+use Knp\UniMail\MailFactory;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class ConfigurationAwareFactorySpec extends ObjectBehavior
 {
@@ -15,7 +14,7 @@ class ConfigurationAwareFactorySpec extends ObjectBehavior
             'the_mail' => [
                 'from' => 'mail@mail.com',
                 'to'   => 'to@mail.com',
-            ]
+            ],
         ];
 
         $this->beConstructedWith($configuration, $factory);
@@ -23,32 +22,30 @@ class ConfigurationAwareFactorySpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Knp\Rad\Mailer\MailFactory\ConfigurationAwareFactory');
+        $this->shouldHaveType('Knp\UniMail\MailFactory\ConfigurationAwareFactory');
     }
 
     function it_instantiate_a_new_mail_with_configuration($factory, Mail $mail)
     {
         $factory
             ->createMail('the_mail', ['from' => 'from@mail.com', 'to' => 'to@mail.com'])
-            ->willReturn($mail)
-        ;
+            ->willReturn($mail);
 
         $this
             ->createMail('the_mail', ['from' => 'from@mail.com'])
-            ->shouldReturn($mail)
-        ;
+            ->shouldReturn($mail);
     }
 
-    function it_instantiate_a_new_mail_without_configuration($factory, Mail $mail)
-    {
+    function it_instantiate_a_new_mail_without_configuration(
+        $factory,
+        Mail $mail
+    ) {
         $factory
             ->createMail('the_other_mail', ['from' => 'from@mail.com'])
-            ->willReturn($mail)
-        ;
+            ->willReturn($mail);
 
         $this
             ->createMail('the_other_mail', ['from' => 'from@mail.com'])
-            ->shouldReturn($mail)
-        ;
+            ->shouldReturn($mail);
     }
 }

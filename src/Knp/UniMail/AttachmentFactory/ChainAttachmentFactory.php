@@ -18,6 +18,7 @@ class ChainAttachmentFactory implements AttachmentFactory
     {
         $this->factories = $factories;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -48,12 +49,15 @@ class ChainAttachmentFactory implements AttachmentFactory
         switch (true) {
             case is_array($content):
                 $message = sprintf($message, 'an', 'array');
+
                 break;
             case is_object($content):
                 $message = sprintf($message, 'object', get_class($content));
+
                 break;
             default:
                 $message = sprintf($message, gettype($content), $content);
+
                 break;
         }
 
