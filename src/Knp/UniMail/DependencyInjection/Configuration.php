@@ -8,18 +8,18 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * @var array
+     * @var string
      */
-    private $defaults;
+    private $defaultDirectory;
 
     /**
-     * @param array $defaults
+     * @param string $defaultDirectory
      *
      * @return
      */
-    public function __construct(array $defaults)
+    public function __construct($defaultDirectory)
     {
-        $this->defaults = $defaults;
+        $this->defaultDirectory = $defaultDirectory;
     }
 
     /**
@@ -31,7 +31,7 @@ class Configuration implements ConfigurationInterface
         $builder
             ->root('knp_unimail')
             ->children()
-                ->scalarNode('attachments_directory')->defaultValue($this->defaults['attachments_directory'])->end()
+                ->scalarNode('attachments_directory')->defaultValue($this->defaultDirectory)->end()
                 ->arrayNode('mails')
                     ->isRequired()
                     ->useAttributeAsKey('name')

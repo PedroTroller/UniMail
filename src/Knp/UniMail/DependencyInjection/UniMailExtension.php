@@ -30,11 +30,7 @@ class UniMailExtension extends Extension
      */
     public function getConfiguration(array $config, ContainerBuilder $container)
     {
-        $defaults = [
-            'attachments_directory' => $container->getParameter('knp_unimail.attachments_directory'),
-        ];
-
-        return  new Configuration($defaults);
+        return  new Configuration(sprintf('%s/../web', $container->getParameter('kernel.root_dir')));
     }
 
     /**
