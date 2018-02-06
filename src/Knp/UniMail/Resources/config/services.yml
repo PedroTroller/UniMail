@@ -1,6 +1,3 @@
-parameters:
-    knp_unimail.attachments_directory: "%kernel.root_dir%/../web"
-
 services:
     knp_unimail.attachment_factory.chain_attachment_factory:
         class: Knp\UniMail\AttachmentFactory\ChainAttachmentFactory
